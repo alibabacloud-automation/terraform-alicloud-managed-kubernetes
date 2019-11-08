@@ -48,14 +48,13 @@ Conditional creation
 --------------------
 This example can support the following creating kubernetes cluster scenario by setting different arguments.
 
-### 1. Create a new vpc, vswitches and nat gateway for the cluster.
+### 1. Retrieve existing vswitch by tags and name regex.
 
 You can specify the following user-defined arguments:
 
-* vpc_name: A new vpc name
-* vpc_cidr: A new vpc cidr block
-* vswitch_name_prefix: The name prefix of several vswitches
-* vswitch_cidrs: List of cidr blocks for several new vswitches
+* vswitch_name_regex: A default filter applied to retrieve existing vswitches by name regex.
+* vswitch_tags: A default filter applied to retrieve existing vswitches by tags.
+* vswitch_resource_group_id: A default filter applied to retrieve existing vswitches by resource group id.
 
 ### 2. Using existing vpc and vswitches for the cluster.
 
@@ -76,7 +75,7 @@ In other words, you must set snat entry for each vswitch before running the exam
 
 Terraform version
 -----------------
-Terraform version 0.11.0 or newer and Provider version 1.57.2 or newer are required for this example to work.
+Terraform version 0.12.0 or newer and Provider version 1.60,0 or newer are required for this example to work.
 
 Authors
 -------

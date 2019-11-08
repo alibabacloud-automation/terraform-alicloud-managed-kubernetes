@@ -3,7 +3,37 @@
 
 variable "region" {
   description = "The region used to launch this module resources."
-  default     = "cn-beijing"
+  default     = ""
+}
+
+variable "profile" {
+  description = "The profile name as set in the shared credentials file. If not set, it will be sourced from the ALICLOUD_PROFILE environment variable."
+  default     = ""
+}
+variable "shared_credentials_file" {
+  description = "This is the path to the shared credentials file. If this is not set and a profile is specified, $HOME/.aliyun/config.json will be used."
+  default     = ""
+}
+
+variable "skip_region_validation" {
+  description = "Skip static validation of region ID. Used by users of alternative AlibabaCloud-like APIs or users w/ access to regions that are not public (yet)."
+  default     = false
+}
+
+variable "filter_with_name_regex" {
+  description = "A default filter applied to retrieve existing vswitches and kubernetes clusters by name regex."
+  default     = ""
+}
+
+variable "filter_with_tags" {
+  description = "A default filter applied to retrieve existing vswitches and kubernetes clusters by tags."
+  type        = map(string)
+  default     = {}
+}
+
+variable "filter_with_resource_group_id" {
+  description = "A default filter applied to retrieve existing vswitches and kubernetes clusters by resource group id."
+  default     = ""
 }
 
 variable "availability_zone" {
@@ -11,16 +41,11 @@ variable "availability_zone" {
   default     = ""
 }
 
-variable "number_format" {
-  description = "The number format used to output."
-  default     = "%02d"
-}
-
 variable "example_name" {
   default = "tf-example-managed-kubernetes"
 }
 
-# Instance typs variables
+# Instance types variables
 variable "cpu_core_count" {
   description = "CPU core count is used to fetch instance types."
   default     = 1
@@ -31,38 +56,29 @@ variable "memory_size" {
   default     = 2
 }
 
-# VPC variables
-variable "vpc_name" {
-  description = "The vpc name used to create a new vpc when 'vpc_id' is not specified. Default to variable `example_name`"
-  default     = ""
-}
-
-variable "vpc_id" {
-  description = "A existing vpc id used to create several vswitches and other resources."
-  default     = ""
-}
-
-variable "vpc_cidr" {
-  description = "The cidr block used to launch a new vpc when 'vpc_id' is not specified."
-  default     = "192.168.0.0/16"
-}
-
 # VSwitch variables
-variable "vswitch_name_prefix" {
-  description = "The vswitch name prefix used to create several new vswitches. Default to variable `example_name`"
+
+variable "vswitch_name_regex" {
+  description = "A default filter applied to retrieve existing vswitches by name regex. If not set, `filter_with_name_regex` will be used."
   default     = ""
 }
+
+variable "vswitch_tags" {
+  description = "A default filter applied to retrieve existing vswitches by tags. If not set, `filter_with_tags` will be used."
+  type        = map(string)
+  default     = {}
+}
+
+variable "vswitch_resource_group_id" {
+  description = "A id string to filter vswitches by resource group id."
+  default     = ""
+}
+
 
 variable "vswitch_ids" {
   description = "List of existing vswitch id."
   type        = list(string)
   default     = []
-}
-
-variable "vswitch_cidrs" {
-  description = "List of cidr blocks used to create several new vswitches when 'vswitch_ids' is not specified."
-  type        = list(string)
-  default     = ["192.168.1.0/24"]
 }
 
 variable "new_nat_gateway" {
@@ -75,7 +91,7 @@ variable "new_nat_gateway" {
 variable "worker_instance_types" {
   description = "The ecs instance type used to launch worker nodes. Default from instance typs datasource."
   type        = list(string)
-  default     = ["ecs.n4.xlarge"]
+  default     = []
 }
 
 variable "worker_disk_category" {
@@ -115,5 +131,18 @@ variable "k8s_service_cidr" {
 
 variable "cluster_network_type" {
   description = "Network type, valid options are flannel, terway"
-  default = "flannel"
+  default     = "flannel"
+}
+
+# Log config variables
+
+variable "create_log_project" {
+  description = "Whether to create a log project"
+  default     = true
+}
+
+variable "log_config" {
+  description = "A list of one element containing information about the associated log store."
+  type        = list(map(string))
+  default     = []
 }
