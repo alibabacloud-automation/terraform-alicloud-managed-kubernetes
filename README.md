@@ -16,66 +16,51 @@ These types of the module resource are supported:
 
 Usage
 -----
-This example can specify the following arguments to create user-defined kuberntes cluster
-
-* alicloud_access_key: The Alicloud Access Key ID
-* alicloud_secret_key: The Alicloud Access Secret Key
-* region: The ID of region in which launching resources
-* k8s_name_prefix: The name prefix of kubernetes cluster
-* worker_number: The number of worker nodes in each kubernetes cluster
-* k8s_pod_cidr: The kubernetes pod cidr block. It cannot be equals to vpc's or vswitch's and cannot be in them. 
-* k8s_service_cidr: The kubernetes service cidr block. Its setting rule is same as `k8s_pod_cidr`
-* Other kubernetes cluster arguments
-
-Usage
------
 
 This module used to create a managed kubernetes and it can meet several scenarios by specifying different parameters.
 
-1. Create a new vpc, several new vswitches and a new nat gateway for the cluster.
-    ```hcl
-    // Create a scaling group using autoscaling module at first.
-    module "managed-k8s" {
-      source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
-      profile            = "Your-profile-name"
-      
-      k8s_name_prefix = "my-managed-k8s-with-new-vpc"
-      new_vpc         = true
-      vpc_cidr        = "192.168.0.0/16"
-      vswitch_cidrs   = [
-        "192.168.1.0/24",
-        "192.168.2.0/24",
-        "192.168.3.0/24",
-        "192.168.4.0/24",
-      ]
-    }
-    ```
-
-  In this scenario, the module will create a new vpc with `vpc_cidr`, several vswitches with `vswitch_cidrs`, a new nat gateway, 
-  a new EIP with `new_eip_bandwidth` and several snat entries for vswitches.
-  
-1. Using existing vpc and vswitches by specifying `vswitch_ids`. Setting `new_nat_gateway=true` to add a new nat gateway in the vswitches' vpc.
-    ```hcl
-    // Create a scaling group using autoscaling module at first.
-    module "managed-k8s" {
-      source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
-      profile            = "Your-profile-name"
-      
-      k8s_name_prefix = "my-managed-k8s-with-new-vpc"
-      new_vpc         = false
-      vswitch_ids     = [
-        "vsw-12345678",
-        "vsw-09876537"
-      ]
-      new_nat_gateway = true
-    }
-    ```
- 
-  In this scenario, if setting `new_nat_gateway=false`, you should ensure the specified vswitches can access internet.
-  In other words, the specified vpc has a nat gateway and there are several snat entries to bind the vswitches and a EIP.
-  
 **NOTE:** This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
 If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
+
+### 1 Create a new vpc, several new vswitches and a new nat gateway for the cluster.
+```hcl
+// Create a scaling group using autoscaling module at first.
+module "managed-k8s" {
+  source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
+  profile            = "Your-profile-name"
+  
+  k8s_name_prefix = "my-managed-k8s-with-new-vpc"
+  new_vpc         = true
+  vpc_cidr        = "192.168.0.0/16"
+  vswitch_cidrs   = [
+    "192.168.1.0/24",
+    "192.168.2.0/24",
+    "192.168.3.0/24",
+    "192.168.4.0/24",
+  ]
+}
+```
+In this scenario, the module will create a new vpc with `vpc_cidr`, several vswitches with `vswitch_cidrs`, a new nat gateway, 
+a new EIP with `new_eip_bandwidth` and several snat entries for vswitches.
+  
+### 2 Using existing vpc and vswitches by specifying `vswitch_ids`. Setting `new_nat_gateway=true` to add a new nat gateway in the vswitches' vpc.
+```hcl
+// Create a scaling group using autoscaling module at first.
+module "managed-k8s" {
+  source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
+  profile            = "Your-profile-name"
+  
+  k8s_name_prefix = "my-managed-k8s-with-new-vpc"
+  new_vpc         = false
+  vswitch_ids     = [
+    "vsw-12345678",
+    "vsw-09876537"
+  ]
+  new_nat_gateway = true
+}
+```
+In this scenario, if setting `new_nat_gateway=false`, you should ensure the specified vswitches can access internet.
+In other words, the specified vpc has a nat gateway and there are several snat entries to bind the vswitches and a EIP.
 
 ## Conditional creation
 
