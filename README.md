@@ -24,7 +24,6 @@ If you have not set them yet, please install [aliyun-cli](https://github.com/ali
 
 ### 1 Create a new vpc, several new vswitches and a new nat gateway for the cluster.
 ```hcl
-// Create a scaling group using autoscaling module at first.
 module "managed-k8s" {
   source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
   profile            = "Your-profile-name"
@@ -45,7 +44,6 @@ a new EIP with `new_eip_bandwidth` and several snat entries for vswitches.
   
 ### 2 Using existing vpc and vswitches by specifying `vswitch_ids`. Setting `new_nat_gateway=true` to add a new nat gateway in the vswitches' vpc.
 ```hcl
-// Create a scaling group using autoscaling module at first.
 module "managed-k8s" {
   source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
   profile            = "Your-profile-name"
@@ -66,12 +64,12 @@ In other words, the specified vpc has a nat gateway and there are several snat e
 
 This moudle can set [sls project](https://www.terraform.io/docs/providers/alicloud/r/log_project.html) config for this module
 
-1. Create a new sls project with `new_sls_project`:
+1. Create a new sls project with `new_sls_project`:  
     ```hcl
     new_sls_project = true
     ```
 
-1. Using existing sls project with `sls_project_name`:
+1. Using existing sls project with `sls_project_name`:  
     ```hcl
     sls_project_name = "Your-sls-project-name"
     ```

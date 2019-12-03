@@ -9,8 +9,9 @@ provider "alicloud" {
 }
 
 resource "alicloud_log_project" "new" {
-  count       = var.new_sls_project == true ? 1 : 0
-  name        = "for-${local.k8s_name}"
+  count = var.new_sls_project == true ? 1 : 0
+  // sls project name must end with lower letter
+  name        = format("%s-end", substr("for-${local.k8s_name}", 0, 59))
   description = "created by terraform for managedkubernetes cluster"
 }
 
@@ -29,7 +30,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   worker_instance_types = var.worker_instance_types
   worker_number         = var.worker_number
   log_config {
-    type    = local.sls_project == "" ? null : "SLS"
+    type    = "SLS"
     project = local.sls_project == "" ? null : local.sls_project
   }
   depends_on = [alicloud_snat_entry.new]
