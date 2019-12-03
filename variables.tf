@@ -86,7 +86,7 @@ variable "worker_disk_size" {
 }
 
 variable "ecs_password" {
-  description = "The password of work nodes."
+  description = "The password of worker nodes."
   default     = "Abc12345"
 }
 
@@ -122,5 +122,22 @@ variable "new_sls_project" {
 }
 variable "sls_project_name" {
   description = "Specify a existing sls project for this module."
+  default     = ""
+}
+
+variable "kube_config_path" {
+  description = "The path of kube config, like ~/.kube/config"
+  default     = ""
+}
+variable "client_cert_path" {
+  description = "The path of client certificate, like ~/.kube/client-cert.pem"
+  default     = ""
+}
+variable "client_key_path" {
+  description = "The path of client key, like ~/.kube/client-key.pem"
+  default     = ""
+}
+variable "cluster_ca_cert_path" {
+  description = "The path of cluster ca certificate, like ~/.kube/cluster-ca-cert.pem"
   default     = ""
 }
