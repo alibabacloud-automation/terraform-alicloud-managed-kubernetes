@@ -70,8 +70,22 @@ This moudle can set [sls project](https://www.terraform.io/docs/providers/aliclo
     ```
 
 1. Using existing sls project with `sls_project_name`:  
-    ```hcl
+    ```hcl-terraform
     sls_project_name = "Your-sls-project-name"
+    ```
+
+If you want to store kube config and other certificates after the cluster created, you can set the following parameters: 
+
+1. Store kube config with `kube_config_path`:  
+    ```hcl-terraform
+    kube_config_path = "/home/xxx/.kube/config"
+    ```
+
+1. Store more certificates`:  
+    ```hcl-terraform
+    client_cert_path     = "/home/xxx/.kube/client-cert.pem"
+    client_key_path      = "/home/xxx/.kube/client-key.pem"
+    cluster_ca_cert_path = "/home/xxx/.kube/cluster-ca-cert.pem"
     ```
 
 ## Inputs
@@ -102,6 +116,10 @@ This moudle can set [sls project](https://www.terraform.io/docs/providers/aliclo
 | cluster_network_type | Network type, valid options are `flannel` and `terway` | string | "flannel" | no |
 | new_sls_project | Create a new sls project for this module | bool | false | no |
 | sls_project_name | Specify a existing sls project for this module | string | "" | no |
+| kube_config_path | The path of kube config, like ~/.kube/config | string | "" | no |
+| client_cert_path | The path of client certificate, like ~/.kube/client-cert.pem | string | "" | no |
+| client_key_path | The path of client key, like ~/.kube/client-key.pem | string | "" | no |
+| cluster_ca_cert_path | The path of cluster ca certificate, like ~/.kube/cluster-ca-cert.pem | string | "" | no |
 
 ## Outputs
 

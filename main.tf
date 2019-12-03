@@ -33,5 +33,10 @@ resource "alicloud_cs_managed_kubernetes" "this" {
     type    = "SLS"
     project = local.sls_project == "" ? null : local.sls_project
   }
+  kube_config     = var.kube_config_path
+  client_cert     = var.client_cert_path
+  client_key      = var.client_key_path
+  cluster_ca_cert = var.cluster_ca_cert_path
+
   depends_on = [alicloud_snat_entry.new]
 }

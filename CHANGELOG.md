@@ -1,4 +1,10 @@
-## 1.2.0 (Unreleased)
+## 1.3.0 (Unreleased)
+## 1.2.0 (December 3, 2019)
+
+IMPROVEMENTS:
+
+- add kube config and other certificate path parameters [GH-6](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/6)
+
 ## 1.1.0 (December 3, 2019)
 
 BUG FIXES:
