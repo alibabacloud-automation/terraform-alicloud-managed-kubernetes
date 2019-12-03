@@ -21,7 +21,7 @@ resource "alicloud_vpc" "new" {
 // According to the vswitch cidr blocks to launch several vswitches
 resource "alicloud_vswitch" "new" {
   count             = var.new_vpc == true ? length(var.vswitch_cidrs) : 0
-  vpc_id            = alicloud_vpc.new.0.id
+  vpc_id            = concat(alicloud_vpc.new.*.id, [""])[0]
   cidr_block        = var.vswitch_cidrs[count.index]
   availability_zone = length(var.availability_zones) > 0 ? element(var.availability_zones, count.index) : element(data.alicloud_zones.default.ids.*, count.index)
   name              = local.new_vpc_name
@@ -30,7 +30,7 @@ resource "alicloud_vswitch" "new" {
 
 resource "alicloud_nat_gateway" "new" {
   count  = var.new_vpc == true ? 1 : 0
-  vpc_id = alicloud_vpc.new.0.id
+  vpc_id = concat(alicloud_vpc.new.*.id, [""])[0]
   name   = local.new_vpc_name
   //  tags   = local.new_vpc_tags
 }
@@ -44,13 +44,13 @@ resource "alicloud_eip" "new" {
 
 resource "alicloud_eip_association" "new" {
   count         = var.new_vpc == true ? 1 : 0
-  allocation_id = alicloud_eip.new.0.id
-  instance_id   = alicloud_nat_gateway.new.0.id
+  allocation_id = concat(alicloud_eip.new.*.id, [""])[0]
+  instance_id   = concat(alicloud_nat_gateway.new.*.id, [""])[0]
 }
 
 resource "alicloud_snat_entry" "new" {
   count             = var.new_vpc == true ? length(var.vswitch_cidrs) : 0
-  snat_table_id     = alicloud_nat_gateway.new.0.snat_table_ids
+  snat_table_id     = concat(alicloud_nat_gateway.new.*.snat_table_ids, [""])[0]
   source_vswitch_id = alicloud_vswitch.new[count.index].id
-  snat_ip           = alicloud_eip.new.0.ip_address
+  snat_ip           = concat(alicloud_eip.new.*.ip_address, [""])[0]
 }
