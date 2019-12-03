@@ -65,23 +65,27 @@ In other words, the specified vpc has a nat gateway and there are several snat e
 This moudle can set [sls project](https://www.terraform.io/docs/providers/alicloud/r/log_project.html) config for this module
 
 1. Create a new sls project with `new_sls_project`:  
+
     ```hcl
     new_sls_project = true
     ```
 
 1. Using existing sls project with `sls_project_name`:  
-    ```hcl-terraform
+
+    ```hcl
     sls_project_name = "Your-sls-project-name"
     ```
 
 If you want to store kube config and other certificates after the cluster created, you can set the following parameters: 
 
 1. Store kube config with `kube_config_path`:  
-    ```hcl-terraform
+
+    ```hcl
     kube_config_path = "/home/xxx/.kube/config"
     ```
 
-1. Store more certificates`:  
+1. Store more certificates:  
+
     ```hcl-terraform
     client_cert_path     = "/home/xxx/.kube/client-cert.pem"
     client_key_path      = "/home/xxx/.kube/client-key.pem"
