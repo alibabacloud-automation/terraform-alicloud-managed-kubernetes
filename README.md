@@ -64,16 +64,31 @@ In other words, the specified vpc has a nat gateway and there are several snat e
 
 This moudle can set [sls project](https://www.terraform.io/docs/providers/alicloud/r/log_project.html) config for this module
 
-1. Create a new sls project with `new_sls_project`:  
+1. Create a new sls project with `cluster_addons`:  
 
     ```hcl
-    new_sls_project = true
-    ```
-
-1. Using existing sls project with `sls_project_name`:  
-
-    ```hcl
-    sls_project_name = "Your-sls-project-name"
+     cluster_addons = [
+       {
+         name   = "flannel",
+         config = "",
+       },
+       {
+         name   = "flexvolume",
+         config = "",
+       },
+       {
+         name   = "alicloud-disk-controller",
+         config = "",
+       },
+       {
+         name   = "logtail-ds",
+         config = "{\"IngressDashboardEnabled\":\"true\"}",
+       },
+       {
+         name   = "nginx-ingress-controller",
+         config = "{\"IngressSlbNetworkType\":\"internet\"}",
+       },
+     ]
     ```
 
 If you want to store kube config and other certificates after the cluster created, you can set the following parameters: 
@@ -139,7 +154,7 @@ If you want to store kube config and other certificates after the cluster create
 
 Terraform version
 -----------------
-Terraform version 0.12.0 or newer and Provider version 1.57.2 or newer are required for this example to work.
+Terraform version 0.12.0 or newer and Provider version 1.77.0 or newer are required for this example to work.
 
 Authors
 -------
