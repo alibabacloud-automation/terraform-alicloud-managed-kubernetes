@@ -2,16 +2,16 @@ variable "profile" {
   default = "default"
 }
 variable "region" {
-  default = "cn-zhangjiakou"
+  default = "cn-hangzhou"
 }
 variable "zone_id" {
-  default = "cn-zhangjiakou-a"
+  default = "cn-hangzhou-e"
 }
 variable "vpc_cidr" {
   default = "10.1.0.0/21"
 }
 variable "availability_zones" {
-  default = ["cn-zhangjiakou-a", "cn-zhangjiakou-b", "cn-zhangjiakou-c"]
+  default = ["cn-hangzhou-e", "cn-hangzhou-f", "cn-hangzhou-g"]
 }
 
 provider "alicloud" {

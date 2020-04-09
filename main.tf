@@ -18,6 +18,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   service_cidr          = var.k8s_service_cidr
   slb_internet_enabled  = true
   install_cloud_monitor = true
+  version               = var.kubernetes_version
   worker_instance_types = var.worker_instance_types
   worker_number         = var.worker_number
   dynamic "addons" {
