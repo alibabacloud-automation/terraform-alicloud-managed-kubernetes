@@ -77,6 +77,12 @@ variable "memory_size" {
   default     = 2
 }
 
+variable "kubernetes_version" {
+  description = "Desired Kubernetes version"
+  type        = string
+  default     = ""
+}
+
 variable "worker_instance_types" {
   description = "The ecs instance type used to launch worker nodes. If not set, data source `alicloud_instance_types` will return one based on `cpu_core_count` and `memory_size`."
   type        = list(string)
