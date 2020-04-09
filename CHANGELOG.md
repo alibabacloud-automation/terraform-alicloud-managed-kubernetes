@@ -1,7 +1,10 @@
-## 1.3.0 (Unreleased)
+## 1.4.0 (Unreleased)
+## 1.3.0 (April 09, 2020)
 
 IMPROVEMENTS:
 
+- support setting kubernetes version [GH-11](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/11)
+- improve(managed-k8s): improve the module to adapt new version resources [GH-10](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/10)
 - Update readme [GH-7](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/7)
 
 ## 1.2.0 (December 3, 2019)
