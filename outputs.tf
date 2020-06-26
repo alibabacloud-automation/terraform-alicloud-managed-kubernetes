@@ -11,6 +11,10 @@ output "this_k8s_nodes" {
   description = "List nodes of cluster."
   value       = concat(alicloud_cs_managed_kubernetes.this.*.worker_nodes, [""])[0]
 }
+output "this_k8s_node_ids" {
+  description = "List ids of of cluster node."
+  value       = [for _, obj in concat(alicloud_cs_managed_kubernetes.this.*.worker_nodes, [{}])[0] : lookup(obj,"id")]
+}
 // Output VPC
 output "this_vpc_id" {
   description = "The ID of the VPC."
