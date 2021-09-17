@@ -158,7 +158,7 @@ Terraform version 0.12.0 or newer and Provider version 1.77.0 or newer are requi
 
 Authors
 -------
-Created and maintained by Meng Xiaobing(@menglingwei, menglingwei@gmail.com, @xiaozhu36, heguimin36@163.com)
+Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.com)
 
 License
 -------
