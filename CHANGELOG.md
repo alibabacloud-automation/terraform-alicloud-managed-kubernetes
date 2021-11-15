@@ -1,4 +1,10 @@
-## 1.5.0 (Unreleased)
+## 1.6.0 (Unreleased)
+## 1.5.0 (November 15, 2021)
+
+IMPROVEMENTS:
+
+- Removes the provider setting and improves the Readme [GH-15](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/15)
+
 ## 1.4.0 (Jun 26, 2020)
 
 IMPROVEMENTS:
