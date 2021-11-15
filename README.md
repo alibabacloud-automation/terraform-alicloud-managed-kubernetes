@@ -26,7 +26,6 @@ If you have not set them yet, please install [aliyun-cli](https://github.com/ali
 ```hcl
 module "managed-k8s" {
   source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
-  profile            = "Your-profile-name"
   
   k8s_name_prefix = "my-managed-k8s-with-new-vpc"
   new_vpc         = true
@@ -46,7 +45,6 @@ a new EIP with `new_eip_bandwidth` and several snat entries for vswitches.
 ```hcl
 module "managed-k8s" {
   source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
-  profile            = "Your-profile-name"
   
   k8s_name_prefix = "my-managed-k8s-with-new-vpc"
   new_vpc         = false
@@ -111,10 +109,6 @@ If you want to store kube config and other certificates after the cluster create
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| region  | The region ID used to launch this module resources. If not set, it will be sourced from followed by ALICLOUD_REGION environment variable and profile | string  | ''  | no  |
-| profile  | The profile name as set in the shared credentials file. If not set, it will be sourced from the ALICLOUD_PROFILE environment variable. | string  | ''  | no  |
-| shared_credentials_file  | This is the path to the shared credentials file. If this is not set and a profile is specified, $HOME/.aliyun/config.json will be used. | string  | ''  | no  |
-| skip_region_validation  | Skip static validation of region ID. Used by users of alternative AlibabaCloud-like APIs or users w/ access to regions that are not public (yet). | bool  | false | no  |
 | new_vpc  | Create a new vpc for this module  | string  | false | no  |
 | vpc_cidr  | The cidr block used to launch a new vpc | string  | "192.168.0.0/16"  | no  |
 | vswitch_ids  | List Ids of existing vswitch  | string  | []  | yes  |
@@ -157,7 +151,7 @@ Terraform version
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
-| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.77.0 |
 
 ## Notes
 From the version v1.5.0, the module has removed the following `provider` setting:
