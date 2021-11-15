@@ -164,10 +164,12 @@ From the version v1.5.0, the module has removed the following `provider` setting
 
 ```hcl
 provider "alicloud" {
-  profile                 = var.profile != "" ? var.profile : null
-  region                  = var.region != "" ? var.region : null
-  skip_region_validation  = var.skip_region_validation
-}
+   profile = var.profile != "" ? var.profile : null
+   shared_credentials_file = var.shared_credentials_file != "" ? var.shared_credentials_file : null
+   region = var.region != "" ? var.region : null
+   skip_region_validation = var.skip_region_validation
+   configuration_source = "terraform-alicloud-modules/managed-kubernetes"
+} 
 ```
 
 If you still want to use the `provider` setting to apply this module, you can specify a supported version, like 1.4.0:
@@ -234,5 +236,3 @@ Reference
 * [Terraform-Provider-Alicloud Github](https://github.com/terraform-providers/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://www.terraform.io/docs/providers/alicloud/)
-
-
