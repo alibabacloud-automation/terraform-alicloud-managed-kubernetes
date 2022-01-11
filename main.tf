@@ -19,6 +19,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   slb_internet_enabled  = true
   install_cloud_monitor = true
   version               = var.kubernetes_version
+  runtime               = var.runtime
   worker_instance_types = var.worker_instance_types
   worker_number         = var.worker_number
   cluster_network_type  = var.cluster_network_type
@@ -38,8 +39,6 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 
   enable_ssh            = var.enable_ssh
 
-  kubernetes_version = var.kubernetes_version
-  runtime            = var.runtime
 
   dynamic "maintenance_window" {
      for_each = var.maintenance_window
