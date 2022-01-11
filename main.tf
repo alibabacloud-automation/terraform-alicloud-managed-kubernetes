@@ -22,8 +22,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   runtime               = var.runtime
   worker_instance_types = var.worker_instance_types
   worker_number         = var.worker_number
-  cluster_network_type  = var.cluster_network_type
-
+  
   dynamic "addons" {
     for_each = var.cluster_addons
     content {

@@ -213,6 +213,6 @@ variable "tags" {
 
 variable "node_pools" {
   type = map(string)
-  description = ""
+  description = "Kubernetes node pools"
   default = {}
 }
