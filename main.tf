@@ -60,7 +60,7 @@ resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
   for_each = var.node_pools
 
   name                 = each.value.name
-  cluster_id           = alicloud_cs_managed_kubernetes.this.id
+  cluster_id           = alicloud_cs_managed_kubernetes.this[0].id
   vswitch_ids          = local.vswitch_ids
   instance_types       = local.node_instance_types
   system_disk_category = "cloud_efficiency"
