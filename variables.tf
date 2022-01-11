@@ -177,3 +177,16 @@ variable "cluster_ca_cert_path" {
   type        = string
   default     = ""
 }
+
+variable "enable_ssh" {
+  type        = bool
+  description = "Enable login to the node through SSH"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags associated to the resources"
+  default = {
+    "Made-By" = "Managed by Terraform"
+  }
+}
