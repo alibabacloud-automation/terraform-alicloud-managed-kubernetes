@@ -56,3 +56,45 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 
   depends_on = [alicloud_snat_entry.new]
 }
+
+resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
+  for_each = var.node_pools
+
+  name                 = each.value.name
+  cluster_id           = alicloud_cs_managed_kubernetes.this.id
+  vswitch_ids          = local.vswitch_ids
+  instance_types       = local.node_instance_types
+  system_disk_category = "cloud_efficiency"
+  system_disk_size     = each.value.system_disk_size
+  node_count           = each.value.node_count
+
+  scaling_config {
+    min_size                 = each.value.node_min_number
+    max_size                 = each.value.node_max_number
+    is_bond_eip              = each.value.node_bind_eip
+    eip_internet_charge_type = "PayByTraffic"
+    eip_bandwidth            = 5
+  }
+
+  management {
+    auto_repair     = each.value.auto_repair
+    auto_upgrade    = each.value.auto_upgrade
+    surge           = each.value.surge
+    max_unavailable = each.value.max_unavailable
+  }
+
+  # spot config
+  # spot_strategy = "SpotWithPriceLimit"
+  # spot_price_limit {
+  #   instance_type = data.alicloud_instance_types.default.instance_types.0.id
+  #   # Different instance types have different price caps
+  #   price_limit = "0.70"
+  # }
+
+  tags = merge(
+    {
+      Type = "autoscaling"
+    },
+    var.tags,
+  )
+}

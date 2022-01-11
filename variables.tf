@@ -210,3 +210,9 @@ variable "tags" {
     "Made-By" = "Managed by Terraform"
   }
 }
+
+variable "node_pools" {
+  type = map(string)
+  description = ""
+  default = {}
+}
