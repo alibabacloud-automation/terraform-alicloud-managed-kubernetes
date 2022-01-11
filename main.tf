@@ -31,6 +31,8 @@ resource "alicloud_cs_managed_kubernetes" "this" {
     }
   }
 
+  runtime = var.runtime
+
   kube_config     = var.kube_config_path
   client_cert     = var.client_cert_path
   client_key      = var.client_key_path

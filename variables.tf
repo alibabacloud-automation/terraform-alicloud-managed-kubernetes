@@ -83,6 +83,15 @@ variable "kubernetes_version" {
   default     = ""
 }
 
+variable "runtime" {
+  descridescription = "The runtime of containers."
+  type = map(string)
+  default = {
+    name    = "docker"
+    version = "19.03.15"
+  }
+}
+
 variable "worker_instance_types" {
   description = "The ecs instance type used to launch worker nodes. If not set, data source `alicloud_instance_types` will return one based on `cpu_core_count` and `memory_size`."
   type        = list(string)
