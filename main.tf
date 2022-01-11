@@ -31,8 +31,6 @@ resource "alicloud_cs_managed_kubernetes" "this" {
     }
   }
 
-  runtime = var.runtime
-
   kube_config     = var.kube_config_path
   client_cert     = var.client_cert_path
   client_key      = var.client_key_path
@@ -42,7 +40,18 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 
   kubernetes_version = var.kubernetes_version
   runtime            = var.runtime
-  
+
+  dynamic "maintenance_window" {
+     for_each = var.maintenance_window
+
+    content {
+      enable            = maintenance_window.value.enabled
+      maintenance_time  = maintenance_window.value.maintenance_time
+      duration          = maintenance_window.value.duration
+      weekly_period     = maintenance_window.value.weekly_period
+    }
+  }
+
   tags = var.tags
 
   depends_on = [alicloud_snat_entry.new]

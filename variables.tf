@@ -84,11 +84,22 @@ variable "kubernetes_version" {
 }
 
 variable "runtime" {
-  descridescription = "The runtime of containers."
+  description = "The runtime of containers."
   type = map(string)
   default = {
     name    = "docker"
     version = "19.03.15"
+  }
+}
+
+variable "maintenance_window" {
+  type = map(string)
+  description = "The cluster maintenance window."
+  default = {
+    enable            = true
+    maintenance_time  = "01:00:00Z"
+    duration          = "3h"
+    weekly_period     = "Monday,Friday"
   }
 }
 
