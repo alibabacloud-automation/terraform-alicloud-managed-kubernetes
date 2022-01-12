@@ -39,7 +39,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 
   password   = length(var.ecs_password) > 0 ? var.ecs_password: null
   enable_ssh = var.enable_ssh
-  key_name   = ength(var.key_name) > 0 ? var.key_name : null
+  key_name   = length(var.key_name) > 0 ? var.key_name : null
 
   dynamic "maintenance_window" {
     for_each = var.maintenance_window.enable ? [var.maintenance_window] : []
