@@ -7,7 +7,7 @@ locals {
     K8s     = local.k8s_name
   }
   vswitch_ids = length(var.vswitch_ids) > 0 ? var.vswitch_ids : alicloud_vswitch.new.*.id
-  pod_vswitch_ids = length(var.pod_vswitch_ids) > 0 ? var.pod_vswitch_ids : alicloud_vswitch.terway.*.id
+  pod_vswitch_ids = length(var.terway_vswitch_ids) > 0 ? var.terway_vswitch_ids : alicloud_vswitch.terway.*.id
 }
 
 resource "random_uuid" "this" {}
