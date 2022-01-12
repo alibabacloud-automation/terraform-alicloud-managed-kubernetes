@@ -14,7 +14,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   pod_vswitch_ids       = local.pod_vswitch_ids
   new_nat_gateway       = var.new_vpc == true ? false : var.new_nat_gateway
   worker_disk_category  = var.worker_disk_category
-  password              = var.ecs_password
+  
   pod_cidr              = var.k8s_pod_cidr
   service_cidr          = var.k8s_service_cidr
   slb_internet_enabled  = true
@@ -37,8 +37,9 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   client_key      = var.client_key_path
   cluster_ca_cert = var.cluster_ca_cert_path
 
+  password   = length(var.ecs_password) > 0 ? var.ecs_password: null
   enable_ssh = var.enable_ssh
-  key_name   = var.key_name
+  key_name   = ength(var.key_name) > 0 ? var.key_name : null
 
   dynamic "maintenance_window" {
     for_each = var.maintenance_window.enable ? [var.maintenance_window] : []

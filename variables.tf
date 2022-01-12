@@ -145,7 +145,7 @@ variable "worker_disk_size" {
 variable "ecs_password" {
   description = "The password of worker nodes."
   type        = string
-  default     = "Abc12345"
+  default     = ""
 }
 
 variable "worker_number" {
