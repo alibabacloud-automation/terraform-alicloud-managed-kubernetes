@@ -40,7 +40,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 
 
   dynamic "maintenance_window" {
-    for_each = toset(var.maintenance_window.enable)
+    for_each = var.maintenance_window.enable ? [var.maintenance_window] : []
 
     content {
       enable            = maintenance_window.value.enable
