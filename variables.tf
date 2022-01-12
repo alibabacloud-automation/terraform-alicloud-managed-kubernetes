@@ -238,7 +238,6 @@ variable "node_pools" {
     max_unavailable     = number
     surge               = bool
     tags                = map(string)
-    labels              = list(map(string))
   }))
   default = {}
 }
