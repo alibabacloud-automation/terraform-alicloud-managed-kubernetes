@@ -38,7 +38,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   cluster_ca_cert = var.cluster_ca_cert_path
 
   enable_ssh = var.enable_ssh
-
+  key_name   = var.key_name
 
   dynamic "maintenance_window" {
     for_each = var.maintenance_window.enable ? [var.maintenance_window] : []
@@ -66,6 +66,8 @@ resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
   system_disk_category = "cloud_efficiency"
   system_disk_size     = each.value.system_disk_size
   node_count           = each.value.node_count
+
+  key_name = var.key_name
 
   scaling_config {
     min_size                 = each.value.node_min_number

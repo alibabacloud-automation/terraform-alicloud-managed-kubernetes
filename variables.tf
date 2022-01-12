@@ -215,6 +215,11 @@ variable "enable_ssh" {
   description = "Enable login to the node through SSH"
 }
 
+variable "key_name" {
+  description = "The keypair of ssh login cluster node"
+  type        = string
+}
+
 variable "tags" {
   type        = map(string)
   description = "Tags associated to the resources"
