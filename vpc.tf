@@ -29,9 +29,9 @@ resource "alicloud_vswitch" "new" {
 }
 
 resource "alicloud_vswitch" "terway" {
-  count             = var.new_vpc == true ? length(var.terway_vswitch_cirds) : 0
+  count             = var.new_vpc == true ? length(var.terway_vswitch_cidrs) : 0
   vpc_id            = concat(alicloud_vpc.new.*.id, [""])[0]
-  cidr_block        = element(var.terway_vswitch_cirds, count.index)
+  cidr_block        = element(var.terway_vswitch_cidrs, count.index)
   availability_zone = element(var.availability_zone, count.index)
 }
 
