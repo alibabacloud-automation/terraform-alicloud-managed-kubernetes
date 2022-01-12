@@ -57,9 +57,9 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 }
 
 resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
-  for_each = var.node_pools
+  for_each = toset(var.node_pools)
 
-  name                 = each.value.name
+  name                 = each.key
   cluster_id           = alicloud_cs_managed_kubernetes.this[0].id
   vswitch_ids          = local.vswitch_ids
   instance_types       = each.value.node_instance_types
@@ -91,9 +91,7 @@ resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
   # }
 
   tags = merge(
-    {
-      Type = "autoscaling"
-    },
+    each.value.tags,
     var.tags,
   )
 }
