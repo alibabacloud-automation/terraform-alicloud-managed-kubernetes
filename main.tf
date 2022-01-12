@@ -57,7 +57,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 }
 
 resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
-  for_each = toset(var.node_pools)
+  for_each = var.node_pools
 
   name                 = each.key
   cluster_id           = alicloud_cs_managed_kubernetes.this[0].id
