@@ -11,6 +11,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   count                 = length(local.vswitch_ids) > 0 ? 1 : 0
   name                  = local.k8s_name
   worker_vswitch_ids    = local.vswitch_ids
+  pod_vswitch_ids       = local.pod_vswitch_ids
   new_nat_gateway       = var.new_vpc == true ? false : var.new_nat_gateway
   worker_disk_category  = var.worker_disk_category
   password              = var.ecs_password

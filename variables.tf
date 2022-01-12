@@ -48,6 +48,18 @@ variable "vswitch_cidrs" {
   default     = ["192.168.1.0/24"]
 }
 
+variable "terway_vswitch_ids" {
+  description = "List Ids of existing vswitch."
+  type        = list(string)
+  default     = []
+}
+
+variable "terway_vswitch_cidrs" {
+  description = "List cidr blocks used to create several new vswitches when 'new_vpc' is true."
+  type        = list(string)
+  default     = ["192.168.1.0/24"]
+}
+
 variable "availability_zones" {
   description = "List available zone ids used to create several new vswitches when 'vswitch_ids' is not specified. If not set, data source `alicloud_zones` will return one automatically."
   type        = list(string)
