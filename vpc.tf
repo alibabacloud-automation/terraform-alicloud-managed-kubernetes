@@ -28,6 +28,15 @@ resource "alicloud_vswitch" "new" {
   tags              = local.new_vpc_tags
 }
 
+resource "alicloud_vswitch" "terway" {
+  count             = var.new_vpc == true ? length(var.terway_vswitch_cidrs) : 0
+  vpc_id            = concat(alicloud_vpc.new.*.id, [""])[0]
+  cidr_block        = element(var.terway_vswitch_cidrs, count.index)
+  availability_zone = length(var.availability_zones) > 0 ? element(var.availability_zones, count.index) : element(data.alicloud_zones.default.ids.*, count.index)
+  name              = format("%s-terway", local.new_vpc_name)
+  tags              = local.new_vpc_tags
+}
+
 resource "alicloud_nat_gateway" "new" {
   count  = var.new_vpc == true ? 1 : 0
   vpc_id = concat(alicloud_vpc.new.*.id, [""])[0]

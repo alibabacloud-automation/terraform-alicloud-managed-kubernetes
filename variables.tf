@@ -48,6 +48,18 @@ variable "vswitch_cidrs" {
   default     = ["192.168.1.0/24"]
 }
 
+variable "terway_vswitch_ids" {
+  description = "List Ids of existing vswitch."
+  type        = list(string)
+  default     = []
+}
+
+variable "terway_vswitch_cidrs" {
+  description = "List cidr blocks used to create several new vswitches when 'new_vpc' is true."
+  type        = list(string)
+  default     = ["192.168.1.0/24"]
+}
+
 variable "availability_zones" {
   description = "List available zone ids used to create several new vswitches when 'vswitch_ids' is not specified. If not set, data source `alicloud_zones` will return one automatically."
   type        = list(string)
@@ -83,6 +95,26 @@ variable "kubernetes_version" {
   default     = ""
 }
 
+variable "runtime" {
+  description = "The runtime of containers."
+  type = map(string)
+  default = {
+    name    = "docker"
+    version = "19.03.15"
+  }
+}
+
+variable "maintenance_window" {
+  type = map(string)
+  description = "The cluster maintenance window."
+  default = {
+    enable            = true
+    maintenance_time  = "01:00:00Z"
+    duration          = "3h"
+    weekly_period     = "Monday,Friday"
+  }
+}
+
 variable "worker_instance_types" {
   description = "The ecs instance type used to launch worker nodes. If not set, data source `alicloud_instance_types` will return one based on `cpu_core_count` and `memory_size`."
   type        = list(string)
@@ -113,7 +145,7 @@ variable "worker_disk_size" {
 variable "ecs_password" {
   description = "The password of worker nodes."
   type        = string
-  default     = "Abc12345"
+  default     = ""
 }
 
 variable "worker_number" {
@@ -176,4 +208,41 @@ variable "cluster_ca_cert_path" {
   description = "The path of cluster ca certificate, like ~/.kube/cluster-ca-cert.pem"
   type        = string
   default     = ""
+}
+
+variable "enable_ssh" {
+  type        = bool
+  description = "Enable login to the node through SSH"
+}
+
+variable "key_name" {
+  description = "The keypair of ssh login cluster node"
+  type        = string
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Tags associated to the resources"
+  default = {
+    "Made-By" = "Managed by Terraform"
+  }
+}
+
+variable "node_pools" {
+  description = "Kubernetes node pools"
+  type = map(object({
+    node_count          = number
+    node_min_number     = number
+    node_max_number     = number
+    node_bind_eip       = bool
+    node_instance_types = list(string)
+    system_disk_category = string
+    system_disk_size    = number
+    auto_repair         = bool
+    auto_upgrade        = bool
+    max_unavailable     = number
+    surge               = number
+    tags                = map(string)
+  }))
+  default = {}
 }
