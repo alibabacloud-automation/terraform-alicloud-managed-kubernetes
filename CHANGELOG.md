@@ -1,4 +1,10 @@
-## 1.6.0 (Unreleased)
+## 1.7.0 (Unreleased)
+## 1.6.0 (July 25, 2023)
+
+IMPROVEMENTS:
+
+- Improves the module example [GH-18](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/18)
+
 ## 1.5.0 (November 15, 2021)
 
 IMPROVEMENTS:

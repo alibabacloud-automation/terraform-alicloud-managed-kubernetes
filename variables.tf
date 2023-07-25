@@ -64,7 +64,13 @@ variable "new_nat_gateway" {
   type        = bool
   default     = false
 }
-# Cluster nodes variables
+# Cluster variables
+variable "cluster_spec" {
+  description = "The cluster specifications of kubernetes cluster. Valid values: ack.standard | ack.pro.small "
+  type        = string
+  default     = ""
+}
+
 variable "cpu_core_count" {
   description = "CPU core count is used to fetch instance types."
   type        = number
@@ -83,12 +89,6 @@ variable "kubernetes_version" {
   default     = ""
 }
 
-variable "worker_instance_types" {
-  description = "The ecs instance type used to launch worker nodes. If not set, data source `alicloud_instance_types` will return one based on `cpu_core_count` and `memory_size`."
-  type        = list(string)
-  default     = ["ecs.n4.xlarge"]
-}
-
 variable "cluster_addons" {
   description = "Addon components in kubernetes cluster"
   type = list(object({
@@ -96,30 +96,6 @@ variable "cluster_addons" {
     config = string
   }))
   default = []
-}
-
-variable "worker_disk_category" {
-  description = "The system disk category used to launch one or more worker nodes."
-  type        = string
-  default     = "cloud_efficiency"
-}
-
-variable "worker_disk_size" {
-  description = "The system disk size used to launch one or more worker nodes."
-  type        = number
-  default     = 40
-}
-
-variable "ecs_password" {
-  description = "The password of worker nodes."
-  type        = string
-  default     = "Abc12345"
-}
-
-variable "worker_number" {
-  description = "The number of kubernetes cluster work nodes."
-  type        = number
-  default     = 2
 }
 
 variable "k8s_name_prefix" {
@@ -140,28 +116,6 @@ variable "k8s_service_cidr" {
   default     = "172.21.0.0/20"
 }
 
-variable "cluster_network_type" {
-  description = "(Deprecated from v1.3.0, use 'cluster_addons' instead)Network type, valid options are `flannel` and `terway`."
-  type        = string
-  default     = "flannel"
-}
-
-variable "new_sls_project" {
-  description = "(Deprecated from v1.3.0, use 'cluster_addons' instead)Create a new sls project for this module."
-  type        = bool
-  default     = false
-}
-variable "sls_project_name" {
-  description = "(Deprecated from v1.3.0, use 'cluster_addons' instead)Specify a existing sls project for this module."
-  type        = string
-  default     = ""
-}
-
-variable "kube_config_path" {
-  description = "The path of kube config, like ~/.kube/config"
-  type        = string
-  default     = ""
-}
 variable "client_cert_path" {
   description = "The path of client certificate, like ~/.kube/client-cert.pem"
   type        = string
@@ -176,4 +130,29 @@ variable "cluster_ca_cert_path" {
   description = "The path of cluster ca certificate, like ~/.kube/cluster-ca-cert.pem"
   type        = string
   default     = ""
+}
+
+# Cluster nodes variables
+variable "worker_instance_types" {
+  description = "The ecs instance type used to launch worker nodes. If not set, data source `alicloud_instance_types` will return one based on `cpu_core_count` and `memory_size`."
+  type        = list(string)
+  default     = ["ecs.c7.xlarge"]
+}
+
+variable "worker_disk_category" {
+  description = "The system disk category used to launch one or more worker nodes."
+  type        = string
+  default     = "cloud_efficiency"
+}
+
+variable "worker_disk_size" {
+  description = "The system disk size used to launch one or more worker nodes."
+  type        = number
+  default     = 40
+}
+
+variable "worker_number" {
+  description = "The number of kubernetes cluster work nodes."
+  type        = number
+  default     = 2
 }
