@@ -28,6 +28,7 @@ module "managed-k8s" {
   source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
   
   k8s_name_prefix = "my-managed-k8s-with-new-vpc"
+  cluster_spec    = "ack.pro.small"
   new_vpc         = true
   vpc_cidr        = "192.168.0.0/16"
   vswitch_cidrs   = [
@@ -47,6 +48,7 @@ module "managed-k8s" {
   source             = "terraform-alicloud-modules/managed-kubernetes/alicloud"
   
   k8s_name_prefix = "my-managed-k8s-with-new-vpc"
+  cluster_spec    = "ack.pro.small"
   new_vpc         = false
   vswitch_ids     = [
     "vsw-12345678",
