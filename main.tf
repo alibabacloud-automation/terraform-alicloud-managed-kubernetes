@@ -18,7 +18,6 @@ resource "alicloud_cs_managed_kubernetes" "this" {
   pod_cidr              = var.k8s_pod_cidr
   service_cidr          = var.k8s_service_cidr
   slb_internet_enabled  = true
-  install_cloud_monitor = true
   version               = var.kubernetes_version
   runtime               = var.runtime
   worker_instance_types = var.worker_instance_types
@@ -68,6 +67,8 @@ resource "alicloud_cs_kubernetes_node_pool" "autoscaling" {
   system_disk_size     = each.value.system_disk_size
   node_count           = each.value.node_count
 
+  install_cloud_monitor = true
+  
   key_name = var.key_name
 
   scaling_config {
