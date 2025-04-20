@@ -1,3 +1,12 @@
+## 20 Apr 2025 00:58 UTC
+
+success : false
+
+### Versions
+
+Terraform v1.6.0
+on linux_amd64
+
 ## 13 Apr 2025 02:50 UTC
 
 success : true
