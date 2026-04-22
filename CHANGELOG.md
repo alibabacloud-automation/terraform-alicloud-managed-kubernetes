@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/alibabacloud-automation/terraform-alicloud-managed-kubernetes/compare/v1.6.0...v2.0.0) (2026-04-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* add provider version constraint for aliyun/alicloud
+
+### Features
+
+* add provider version constraint for aliyun/alicloud ([a9a3250](https://github.com/alibabacloud-automation/terraform-alicloud-managed-kubernetes/commit/a9a3250c582d3acfc65852d04bf0b882c1bd0441))
+
 ## 1.7.0 (Unreleased)
 ## 1.6.0 (July 25, 2023)
 
@@ -44,5 +55,3 @@ IMPROVEMENTS:
 - remove the useless guide [GH-4](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/4)
 - support to create a new vpc and improve this module [GH-3](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/3)
 - add managed kubernetes module [GH-1](https://github.com/terraform-alicloud-modules/terraform-alicloud-managed-kubernetes/pull/1)
-
-
