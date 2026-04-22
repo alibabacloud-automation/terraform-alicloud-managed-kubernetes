@@ -6,7 +6,7 @@ locals {
     For     = "modules/terraform-alicloud-managed-kubernetes"
     K8s     = local.k8s_name
   }
-  vswitch_ids = length(var.vswitch_ids) > 0 ? var.vswitch_ids : alicloud_vswitch.new.*.id
+  vswitch_ids = length(var.vswitch_ids) > 0 ? var.vswitch_ids : alicloud_vswitch.new[*].id
 }
 
 resource "random_uuid" "this" {}

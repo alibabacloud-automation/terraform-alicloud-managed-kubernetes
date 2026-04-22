@@ -1,4 +1,4 @@
-// Output kubernetes resource
+# Output kubernetes resource
 output "this_k8s_name" {
   description = "Name of the kunernetes cluster."
   value       = module.managed-k8s.this_k8s_name

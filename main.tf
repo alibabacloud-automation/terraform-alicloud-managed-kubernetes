@@ -23,7 +23,7 @@ resource "alicloud_cs_managed_kubernetes" "this" {
 resource "alicloud_cs_kubernetes_node_pool" "this" {
   count                = length(local.vswitch_ids) > 0 ? 1 : 0
   name                 = local.k8s_name
-  cluster_id           = alicloud_cs_managed_kubernetes.this.0.id
+  cluster_id           = alicloud_cs_managed_kubernetes.this[0].id
   vswitch_ids          = local.vswitch_ids
   instance_types       = var.worker_instance_types
   system_disk_category = var.worker_disk_category
