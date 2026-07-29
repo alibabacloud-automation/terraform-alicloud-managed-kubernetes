@@ -1,5 +1,5 @@
 locals {
-  worker_instance_type = "ecs.c7.xlarge"
+  worker_instance_type = "ecs.n4.xlarge"
 }
 
 data "alicloud_zones" "default" {
