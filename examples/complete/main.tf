@@ -30,7 +30,7 @@ module "managed-k8s" {
   cpu_core_count        = 4
   memory_size           = 16
   worker_instance_types = [local.worker_instance_type]
-  worker_disk_category  = "cloud_essd"
+  worker_disk_category  = "cloud_efficiency"
   cluster_addons = [
     {
       name   = "flannel",
