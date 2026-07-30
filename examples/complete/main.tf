@@ -1,5 +1,5 @@
 locals {
-  worker_instance_type = "ecs.n4.large"
+  worker_instance_type = "ecs.c7.xlarge"
 }
 
 data "alicloud_zones" "default" {
@@ -27,8 +27,8 @@ module "managed-k8s" {
   k8s_pod_cidr          = cidrsubnet("10.0.0.0/8", 8, 36)
   k8s_service_cidr      = cidrsubnet("172.16.0.0/16", 4, 7)
   kubernetes_version    = "1.24.6-aliyun.1"
-  cpu_core_count        = 2
-  memory_size           = 8
+  cpu_core_count        = 4
+  memory_size           = 16
   worker_instance_types = [local.worker_instance_type]
   worker_disk_category  = "cloud_efficiency"
   cluster_addons = [
