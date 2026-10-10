@@ -1,5 +1,6 @@
 # Instance_types data source for instance_type
 data "alicloud_instance_types" "default" {
+  count = var.new_vpc && length(var.availability_zones) == 0 ? 1 : 0
   #  kubernetes_node_role = "Worker"
   cpu_core_count = var.cpu_core_count
   memory_size    = var.memory_size
@@ -7,7 +8,8 @@ data "alicloud_instance_types" "default" {
 
 # Zones data source for availability_zone
 data "alicloud_zones" "default" {
-  available_instance_type = data.alicloud_instance_types.default.ids[0]
+  count                   = var.new_vpc && length(var.availability_zones) == 0 ? 1 : 0
+  available_instance_type = data.alicloud_instance_types.default[0].ids[0]
 }
 
 # If there is not specifying vpc_id, the module will launch a new vpc
@@ -23,7 +25,7 @@ resource "alicloud_vswitch" "new" {
   count        = var.new_vpc == true ? length(var.vswitch_cidrs) : 0
   vpc_id       = concat(alicloud_vpc.new[*].id, [""])[0]
   cidr_block   = var.vswitch_cidrs[count.index]
-  zone_id      = length(var.availability_zones) > 0 ? element(var.availability_zones, count.index) : element(data.alicloud_zones.default.ids[*], count.index)
+  zone_id      = length(var.availability_zones) > 0 ? element(var.availability_zones, count.index) : element(data.alicloud_zones.default[0].ids[*], count.index)
   vswitch_name = local.new_vpc_name
   tags         = local.new_vpc_tags
 }
